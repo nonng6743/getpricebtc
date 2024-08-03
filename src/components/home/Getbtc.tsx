@@ -1,7 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { GetServerSideProps } from "next";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 type GetbtcProps = {
@@ -93,28 +92,6 @@ const Getbtc = ({ initialBitcoinPrice }: GetbtcProps) => {
       <p className="mt-4 text-2xl">{loading ? "Loading..." : totalValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB</p>
     </div>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  try {
-    const response = await axios.get(
-      "https://api.coindesk.com/v1/bpi/currentprice/THB.json"
-    );
-    const initialBitcoinPrice = response.data.bpi.THB.rate_float;
-
-    return {
-      props: {
-        initialBitcoinPrice,
-      },
-    };
-  } catch (error) {
-    console.error("Error fetching Bitcoin price:", error);
-    return {
-      props: {
-        initialBitcoinPrice: 0,
-      },
-    };
-  }
 };
 
 export default Getbtc;
