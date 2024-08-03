@@ -50,46 +50,48 @@ const Getbtc = ({ initialBitcoinPrice }: GetbtcProps) => {
 
   return (
     <div className="text-center">
-      <h1 className="text-4xl font-bold">Current Bitcoin Price in THB:</h1>
-      <p className="mt-4 text-2xl">
+      <h1 className="text-xl md:text-2xl font-bold">Current Bitcoin Price in THB:</h1>
+      <p className="mt-2 md:mt-4 text-lg md:text-xl">
         {loading ? "Loading..." : bitcoinPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB
       </p>
-      <h2 className="text-3xl font-semibold mt-8">Value of Your Bitcoin:</h2>
-      <p className="mt-4 text-2xl">
+      <h2 className="text-lg md:text-2xl font-semibold mt-4 md:mt-8">Value of Your Bitcoin:</h2>
+      <p className="mt-2 md:mt-4 text-lg md:text-xl">
         {loading ? "Loading..." : valueInTHB.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB
       </p>
-      <h2 className="text-3xl font-semibold mt-8">Value of Your THB:</h2>
-      <p className="mt-4 text-2xl">{thb.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB</p>
+      <h2 className="text-lg md:text-2xl font-semibold mt-4 md:mt-8">Value of Your THB:</h2>
+      <p className="mt-2 md:mt-4 text-lg md:text-xl">{thb.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB</p>
 
-      <div className="mt-8 flex justify-center">
+      <div className="mt-4 md:mt-8 flex justify-center">
         {!loading && (
-          <PieChart width={400} height={400}>
-            <Pie
-              data={data}
-              cx={200}
-              cy={200}
-              labelLine={false}
-              label={({ name, percent }) =>
-                `${name}: ${(percent * 100).toFixed(0)}%`
-              }
-              outerRadius={150}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
+          <div className="w-full md:w-auto overflow-x-auto">
+            <PieChart width={400} height={400}>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({ name, percent }) =>
+                  `${name}: ${(percent * 100).toFixed(0)}%`
+                }
+                outerRadius={150}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </div>
         )}
       </div>
-      <h2 className="text-3xl font-semibold mt-8">Total Value:</h2>
-      <p className="mt-4 text-2xl">{loading ? "Loading..." : totalValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB</p>
+      <h2 className="text-lg md:text-2xl font-semibold mt-4 md:mt-8">Total Value:</h2>
+      <p className="mt-2 md:mt-4 text-lg md:text-xl">{loading ? "Loading..." : totalValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} THB</p>
     </div>
   );
 };
